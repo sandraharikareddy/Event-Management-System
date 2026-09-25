@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <div class="logo">
+        Event Management System - Admin
+    </div>
+
+    <div class="nav-links">
+
+        <a href="admin-dashboard.html">
+            Dashboard
+        </a>
+
+        <button
+            onclick="adminLogout()"
+            class="logout-btn">
+
+            Logout
+
+        </button>
+
+    </div>
+
+</nav>
+
+<section class="dashboard">
+
+    <h1>Admin Dashboard</h1>
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+
+            <h3>Total Events</h3>
+
+            <p id="adminEvents">0</p>
+
+        </div>
+
+        <div class="stat-card">
+
+            <h3>Total Users</h3>
+
+            <p id="adminUsers">0</p>
+
+        </div>
+
+        <div class="stat-card">
+
+            <h3>Total Registrations</h3>
+
+            <p id="adminRegistrations">0</p>
+
+        </div>
+
+        <div class="stat-card">
+
+            <h3>Total Revenue</h3>
+
+            <p id="adminRevenue">₹0</p>
+
+        </div>
+
+    </div>
+
+    <div class="dashboard-section">
+
+        <h2>Event Management</h2>
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Event</th>
+                        <th>Date</th>
+                        <th>Organizer</th>
+                        <th>Tickets</th>
+                        <th>Revenue</th>
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="adminEventTable"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+<script src="scripts.js"></script>
+
+</body>
+</html>

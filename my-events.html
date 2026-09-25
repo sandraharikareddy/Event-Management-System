@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Events</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <div class="logo">Event Management System</div>
+
+    <div class="nav-links">
+
+        <a href="user-dashboard.html">
+            Dashboard
+        </a>
+
+        <a href="events.html">
+            Events
+        </a>
+
+        <a href="my-events.html">
+            My Events
+        </a>
+
+        <a href="my-registrations.html">
+            My Registrations
+        </a>
+
+        <button onclick="logout()" class="logout-btn">
+            Logout
+        </button>
+
+    </div>
+
+</nav>
+
+<section class="page-section">
+
+    <div class="page-header">
+
+        <div>
+            <h1>My Events</h1>
+            <p>Manage the events you created.</p>
+        </div>
+
+        <a href="create-event.html" class="btn">
+            + Create Event
+        </a>
+
+    </div>
+
+    <div id="organizerEvents" class="event-grid"></div>
+
+</section>
+
+<script src="scripts.js"></script>
+
+</body>
+</html>

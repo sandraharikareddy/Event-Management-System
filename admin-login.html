@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Login</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <div class="logo">Event Management System</div>
+
+    <div class="nav-links">
+
+        <a href="index.html">Home</a>
+
+        <a href="events.html">Events</a>
+
+        <a href="user-login.html">User Login</a>
+
+        <a href="signup.html">Sign Up</a>
+
+    </div>
+
+</nav>
+
+<section class="form-section">
+
+    <div class="form-container">
+
+        <h1>Admin Login</h1>
+
+        <p class="form-subtitle">
+            Login to manage the event management system.
+        </p>
+
+        <form id="adminLoginForm">
+
+            <div class="form-group">
+
+                <label>Email</label>
+
+                <input
+                    type="email"
+                    id="adminEmail"
+                    placeholder="Enter admin email"
+                    required>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Password</label>
+
+                <input
+                    type="password"
+                    id="adminPassword"
+                    placeholder="Enter password"
+                    required>
+
+            </div>
+
+            <button type="submit" class="btn">
+                Admin Login
+            </button>
+
+            <p id="adminMsg"></p>
+
+        </form>
+
+    </div>
+
+</section>
+
+<footer>
+    <p>© 2026 Event Management System</p>
+</footer>
+
+<script src="scripts.js"></script>
+
+</body>
+</html>
