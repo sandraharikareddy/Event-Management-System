@@ -1,164 +1,306 @@
-// =====================================================
-// EVENT MANAGEMENT SYSTEM
-// =====================================================
-
 const ADMIN_EMAIL = "harikareddy.sandra221@gmail.com";
 const ADMIN_PASSWORD = "admin123";
 
 
-// =====================================================
-// LOCAL STORAGE
-// =====================================================
+/* =====================================================
+   DEFAULT EVENTS
+   ===================================================== */
+
+const SEED_EVENTS = [
+
+    {
+        id: "seed-event-1",
+        title: "Tech Innovation Summit 2026",
+        date: "2026-10-15",
+        time: "10:00",
+        venue: "KL University, Vijayawada",
+        price: 499,
+        capacity: 300,
+        description:
+            "Explore the latest innovations in technology, AI and emerging technologies.",
+        reminder: true,
+        owner: "sample-organizer@events.local",
+        ownerName: "Event Management Team",
+        category: "Conference"
+    },
+
+    {
+        id: "seed-event-2",
+        title: "AI & Machine Learning Workshop",
+        date: "2026-10-20",
+        time: "11:00",
+        venue: "Vijayawada",
+        price: 299,
+        capacity: 120,
+        description:
+            "Learn the fundamentals of Artificial Intelligence and Machine Learning.",
+        reminder: true,
+        owner: "sample-organizer@events.local",
+        ownerName: "Event Management Team",
+        category: "Workshop"
+    },
+
+    {
+        id: "seed-event-3",
+        title: "Cultural Fest 2026",
+        date: "2026-11-05",
+        time: "17:00",
+        venue: "KL University, Vijayawada",
+        price: 199,
+        capacity: 500,
+        description:
+            "Enjoy music, dance, cultural performances, food and exciting activities.",
+        reminder: true,
+        owner: "sample-organizer@events.local",
+        ownerName: "Event Management Team",
+        category: "Cultural"
+    },
+
+    {
+        id: "seed-event-4",
+        title: "Inter-College Hackathon 2026",
+        date: "2026-11-15",
+        time: "09:00",
+        venue: "Vijayawada Innovation Hub",
+        price: 399,
+        capacity: 200,
+        description:
+            "Build innovative solutions and compete with talented students.",
+        reminder: true,
+        owner: "sample-organizer@events.local",
+        ownerName: "Event Management Team",
+        category: "Hackathon"
+    },
+
+    {
+        id: "seed-event-5",
+        title: "Startup & Entrepreneurship Meet",
+        date: "2026-11-25",
+        time: "14:00",
+        venue: "Business Convention Hall, Vijayawada",
+        price: 349,
+        capacity: 180,
+        description:
+            "Meet founders, explore startup ideas and learn from industry experts.",
+        reminder: false,
+        owner: "sample-organizer@events.local",
+        ownerName: "Event Management Team",
+        category: "Business"
+    },
+
+    {
+        id: "seed-event-6",
+        title: "Winter Music Carnival 2026",
+        date: "2026-12-10",
+        time: "18:30",
+        venue: "City Grounds, Vijayawada",
+        price: 599,
+        capacity: 600,
+        description:
+            "A colourful evening of live music, performances, food and entertainment.",
+        reminder: true,
+        owner: "sample-organizer@events.local",
+        ownerName: "Event Management Team",
+        category: "Music"
+    }
+
+];
+
+
+/* =====================================================
+   LOCAL STORAGE
+   ===================================================== */
 
 function getUsers() {
-    return JSON.parse(localStorage.getItem("users")) || [];
+
+    try {
+
+        return JSON.parse(
+            localStorage.getItem("users")
+        ) || [];
+
+    } catch (error) {
+
+        return [];
+
+    }
+
 }
+
 
 function saveUsers(users) {
-    localStorage.setItem("users", JSON.stringify(users));
+
+    localStorage.setItem(
+        "users",
+        JSON.stringify(users)
+    );
+
 }
+
 
 function getEvents() {
-    return JSON.parse(localStorage.getItem("events")) || [];
+
+    try {
+
+        return JSON.parse(
+            localStorage.getItem("events")
+        ) || [];
+
+    } catch (error) {
+
+        return [];
+
+    }
+
 }
+
 
 function saveEvents(events) {
-    localStorage.setItem("events", JSON.stringify(events));
+
+    localStorage.setItem(
+        "events",
+        JSON.stringify(events)
+    );
+
 }
+
 
 function getRegistrations() {
-    return JSON.parse(
-        localStorage.getItem("registrations")
-    ) || [];
+
+    try {
+
+        return JSON.parse(
+            localStorage.getItem("registrations")
+        ) || [];
+
+    } catch (error) {
+
+        return [];
+
+    }
+
 }
 
+
 function saveRegistrations(registrations) {
+
     localStorage.setItem(
         "registrations",
         JSON.stringify(registrations)
     );
+
 }
+
 
 function getCurrentUser() {
-    return JSON.parse(
-        localStorage.getItem("currentUser")
-    );
+
+    try {
+
+        return JSON.parse(
+            localStorage.getItem("currentUser")
+        );
+
+    } catch (error) {
+
+        return null;
+
+    }
+
 }
 
-
-// =====================================================
-// ID
-// =====================================================
 
 function generateId(prefix) {
 
-    return prefix +
+    return (
+        prefix +
         Date.now() +
-        Math.floor(Math.random() * 1000);
+        Math.floor(Math.random() * 1000)
+    );
 
 }
 
 
-// =====================================================
-// INITIAL DATA
-// =====================================================
+function escapeHTML(value) {
+
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+function formatDate(date) {
+
+    if (!date) {
+        return "";
+    }
+
+    const d =
+        new Date(date + "T00:00:00");
+
+    return d.toLocaleDateString(
+        "en-IN",
+        {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+        }
+    );
+
+}
+
+
+function formatTime(time) {
+
+    if (!time) {
+        return "";
+    }
+
+    const [hour, minute] =
+        time.split(":");
+
+    const d = new Date();
+
+    d.setHours(
+        Number(hour),
+        Number(minute),
+        0,
+        0
+    );
+
+    return d.toLocaleTimeString(
+        "en-IN",
+        {
+            hour: "2-digit",
+            minute: "2-digit"
+        }
+    );
+
+}
+
+
+/* =====================================================
+   INITIAL DATA
+   ===================================================== */
 
 function initializeData() {
 
-   function setupUserLogin() {
+    if (!localStorage.getItem("users")) {
 
-    const form = document.getElementById("loginForm");
+        saveUsers([]);
 
-    if (!form) return;
+    }
 
-    form.addEventListener("submit", function (e) {
-
-        e.preventDefault();
-
-        const email = document
-            .getElementById("loginEmail")
-            .value
-            .trim();
-
-        const password = document
-            .getElementById("loginPassword")
-            .value
-            .trim();
-
-        const msg = document.getElementById("loginMsg");
-
-        const users = getUsers();
-
-        const user = users.find(function (u) {
-
-            return (
-                u.email.toLowerCase() === email.toLowerCase() &&
-                u.password === password
-            );
-
-        });
-
-        if (!user) {
-
-            msg.textContent = "Invalid email or password.";
-            msg.style.color = "red";
-            return;
-
-        }
-
-        localStorage.setItem(
-            "currentUser",
-            JSON.stringify({
-                id: user.id,
-                name: user.name,
-                email: user.email,
-                role: user.role
-            })
-        );
-
-        window.location.href = "user-dashboard.html";
-
-    });
-
-}
 
     if (!localStorage.getItem("events")) {
 
-        saveEvents([
-
-            {
-                id: "event1",
-                title: "Tech Conference 2026",
-                date: "2026-10-15",
-                time: "10:00",
-                venue: "Hyderabad Convention Centre",
-                price: 500,
-                capacity: 200,
-                description:
-                    "A conference about technology, AI and innovation.",
-                reminder: true,
-                owner: "student@gmail.com",
-                ownerName: "Demo Student"
-            },
-
-            {
-                id: "event2",
-                title: "Music Festival",
-                date: "2026-11-10",
-                time: "18:00",
-                venue: "City Grounds",
-                price: 800,
-                capacity: 500,
-                description:
-                    "Live music festival with multiple performances.",
-                reminder: true,
-                owner: "student@gmail.com",
-                ownerName: "Demo Student"
-            }
-
-        ]);
+        saveEvents([]);
 
     }
+
 
     if (!localStorage.getItem("registrations")) {
 
@@ -166,80 +308,144 @@ function initializeData() {
 
     }
 
-}
+
+    /* Remove old demo account */
+
+    saveUsers(
+
+        getUsers().filter(
+            function (user) {
+
+                return (
+                    String(
+                        user.email || ""
+                    ).toLowerCase()
+                    !==
+                    "student@gmail.com"
+                );
+
+            }
+        )
+
+    );
 
 
-// =====================================================
-// USER LOGIN
-// =====================================================
+    let events = getEvents();
 
-function setupUserLogin() {
 
-    const form = document.getElementById("loginForm");
+    /* Remove old Music Festival
+       only when it is old demo data */
 
-    if (!form) return;
+    const oldDemoTitles = [
 
-    form.addEventListener("submit", function (e) {
+        "Music Festival",
+        "Tech Conference 2026"
 
-        e.preventDefault();
+    ];
 
-        const email = document
-            .getElementById("loginEmail")
-            .value
-            .trim();
 
-        const password = document
-            .getElementById("loginPassword")
-            .value
-            .trim();
+    events = events.filter(
 
-        const msg = document.getElementById("loginMsg");
+        function (event) {
 
-        const users = getUsers();
-
-        const user = users.find(function (u) {
-
-            return (
-                u.email.toLowerCase() === email.toLowerCase() &&
-                u.password === password
+            return !(
+                oldDemoTitles.includes(
+                    event.title
+                )
+                &&
+                (
+                    event.owner ===
+                    "student@gmail.com"
+                    ||
+                    !event.owner
+                )
             );
-
-        });
-
-        if (!user) {
-
-            msg.textContent = "Invalid email or password.";
-            msg.style.color = "red";
-            return;
 
         }
 
-        localStorage.setItem(
-            "currentUser",
-            JSON.stringify({
-                id: user.id,
-                name: user.name,
-                email: user.email,
-                role: user.role
-            })
-        );
+    );
 
-        window.location.href = "user-dashboard.html";
 
-    });
+    /* Add six sample events */
+
+    SEED_EVENTS.forEach(
+
+        function (seed) {
+
+            const alreadyExists =
+                events.some(
+
+                    function (event) {
+
+                        return (
+                            event.id ===
+                            seed.id
+                        );
+
+                    }
+
+                );
+
+
+            if (!alreadyExists) {
+
+                events.push(seed);
+
+            }
+
+        }
+
+    );
+
+
+    saveEvents(events);
 
 }
 
-// =====================================================
-// SIGN UP
-// =====================================================
 
-function setupSignup() {
+/* =====================================================
+   ROLE DASHBOARD REDIRECTION
+   ===================================================== */
+
+function redirectToRoleDashboard() {
+
+    const user =
+        getCurrentUser();
+
+
+    if (!user) {
+
+        window.location.href =
+            "login.html";
+
+        return;
+
+    }
+
+
+    window.location.href =
+        "user-dashboard.html";
+
+}
+
+
+/* =====================================================
+   ONE LOGIN
+   ADMIN + ORGANIZER + ATTENDEE
+   ===================================================== */
+
+function setupLogin() {
 
     const form =
-        document.getElementById("signupForm");
+        document.getElementById(
+            "loginForm"
+        );
 
-    if (!form) return;
+
+    if (!form) {
+        return;
+    }
+
 
     form.addEventListener(
         "submit",
@@ -247,63 +453,283 @@ function setupSignup() {
 
             e.preventDefault();
 
-            const name =
-                document.getElementById("signupName")
-                .value
-                .trim();
 
             const email =
-                document.getElementById("signupEmail")
-                .value
-                .trim();
+                document
+                    .getElementById(
+                        "loginEmail"
+                    )
+                    .value
+                    .trim()
+                    .toLowerCase();
+
 
             const password =
-                document.getElementById("signupPassword")
-                .value
-                .trim();
+                document
+                    .getElementById(
+                        "loginPassword"
+                    )
+                    .value
+                    .trim();
 
-            const role =
-                document.getElementById("signupRole")
-                .value;
 
             const msg =
-                document.getElementById("signupMsg");
+                document.getElementById(
+                    "loginMsg"
+                );
 
 
-            if (!name ||
-                !email ||
-                !password ||
-                !role) {
+            msg.textContent = "";
 
-                msg.textContent =
-                    "Please fill all fields.";
 
-                msg.style.color = "red";
+            /* ADMIN LOGIN */
+
+            if (
+                email ===
+                ADMIN_EMAIL.toLowerCase()
+                &&
+                password ===
+                ADMIN_PASSWORD
+            ) {
+
+                localStorage.removeItem(
+                    "currentUser"
+                );
+
+                localStorage.setItem(
+                    "adminLoggedIn",
+                    "true"
+                );
+
+
+                window.location.href =
+                    "admin-dashboard.html";
 
                 return;
 
             }
 
 
-            const users = getUsers();
+            /* ORGANIZER / ATTENDEE */
 
-            const existing =
-                users.find(function (u) {
+            const user =
+                getUsers().find(
 
-                    return (
-                        u.email.toLowerCase() ===
-                        email.toLowerCase()
-                    );
+                    function (u) {
 
-                });
+                        return (
+
+                            String(
+                                u.email || ""
+                            ).toLowerCase()
+                            === email
+
+                            &&
+
+                            u.password ===
+                            password
+
+                        );
+
+                    }
+
+                );
 
 
-            if (existing) {
+            if (!user) {
+
+                msg.textContent =
+                    "Invalid email or password.";
+
+                msg.style.color =
+                    "#dc2626";
+
+                return;
+
+            }
+
+
+            localStorage.removeItem(
+                "adminLoggedIn"
+            );
+
+
+            localStorage.setItem(
+
+                "currentUser",
+
+                JSON.stringify({
+
+                    id: user.id,
+
+                    name: user.name,
+
+                    email: user.email,
+
+                    role: user.role
+
+                })
+
+            );
+
+
+            redirectToRoleDashboard();
+
+        }
+
+    );
+
+}
+
+
+/* =====================================================
+   SIGNUP
+   ===================================================== */
+
+function setupSignup() {
+
+    const form =
+        document.getElementById(
+            "signupForm"
+        );
+
+
+    if (!form) {
+        return;
+    }
+
+
+    form.addEventListener(
+
+        "submit",
+
+        function (e) {
+
+            e.preventDefault();
+
+
+            const name =
+                document
+                    .getElementById(
+                        "signupName"
+                    )
+                    .value
+                    .trim();
+
+
+            const email =
+                document
+                    .getElementById(
+                        "signupEmail"
+                    )
+                    .value
+                    .trim()
+                    .toLowerCase();
+
+
+            const password =
+                document
+                    .getElementById(
+                        "signupPassword"
+                    )
+                    .value
+                    .trim();
+
+
+            const role =
+                document
+                    .getElementById(
+                        "signupRole"
+                    )
+                    .value;
+
+
+            const msg =
+                document.getElementById(
+                    "signupMsg"
+                );
+
+
+            msg.textContent = "";
+
+
+            if (
+                !name ||
+                !email ||
+                !password ||
+                !role
+            ) {
+
+                msg.textContent =
+                    "Please fill all fields.";
+
+                msg.style.color =
+                    "#dc2626";
+
+                return;
+
+            }
+
+
+            if (password.length < 6) {
+
+                msg.textContent =
+                    "Password must contain at least 6 characters.";
+
+                msg.style.color =
+                    "#dc2626";
+
+                return;
+
+            }
+
+
+            if (
+                email ===
+                ADMIN_EMAIL.toLowerCase()
+            ) {
+
+                msg.textContent =
+                    "This email is reserved for the administrator.";
+
+                msg.style.color =
+                    "#dc2626";
+
+                return;
+
+            }
+
+
+            const users =
+                getUsers();
+
+
+            const exists =
+                users.some(
+
+                    function (user) {
+
+                        return (
+
+                            String(
+                                user.email || ""
+                            ).toLowerCase()
+                            === email
+
+                        );
+
+                    }
+
+                );
+
+
+            if (exists) {
 
                 msg.textContent =
                     "Email already registered.";
 
-                msg.style.color = "red";
+                msg.style.color =
+                    "#dc2626";
 
                 return;
 
@@ -312,217 +738,542 @@ function setupSignup() {
 
             const newUser = {
 
-                id: generateId("user"),
+                id:
+                    generateId("user"),
 
-                name: name,
+                name:
+                    name,
 
-                email: email,
+                email:
+                    email,
 
-                password: password,
+                password:
+                    password,
 
-                role: role
+                role:
+                    role
 
             };
 
 
-            users.push(newUser);
-
-            saveUsers(users);
-
-
-            // Automatically login
-
-            localStorage.setItem(
-                "currentUser",
-                JSON.stringify({
-                    id: newUser.id,
-                    name: newUser.name,
-                    email: newUser.email,
-                    role: newUser.role
-                })
+            users.push(
+                newUser
             );
 
 
-            window.location.href =
-                "user-dashboard.html";
-
-        }
-    );
-
-}
+            saveUsers(
+                users
+            );
 
 
-// =====================================================
-// USER LOGOUT
-// =====================================================
-
-function logout() {
-
-    localStorage.removeItem("currentUser");
-
-    window.location.href =
-        "user-login.html";
-
-}
+            localStorage.removeItem(
+                "adminLoggedIn"
+            );
 
 
-// =====================================================
-// CREATE EVENT
-// =====================================================
+            localStorage.setItem(
 
-function setupCreateEvent() {
+                "currentUser",
 
-    const form =
-        document.getElementById("createEventForm");
+                JSON.stringify({
 
-    if (!form) return;
+                    id:
+                        newUser.id,
 
-    form.addEventListener(
-        "submit",
-        function (e) {
+                    name:
+                        newUser.name,
 
-            e.preventDefault();
+                    email:
+                        newUser.email,
 
-            const user =
-                getCurrentUser();
+                    role:
+                        newUser.role
 
-            if (!user) {
+                })
 
-                window.location.href =
-                    "user-login.html";
-
-                return;
-
-            }
-
-            if (user.role !== "organizer") {
-
-                const msg =
-                    document.getElementById(
-                        "createEventMsg"
-                    );
-
-                msg.textContent =
-                    "Only organizers can create events.";
-
-                msg.style.color = "red";
-
-                return;
-
-            }
+            );
 
 
-            const event = {
+            msg.textContent =
+                "Account created successfully!";
 
-                id: generateId("event"),
-
-                title:
-                    document.getElementById(
-                        "eventTitle"
-                    ).value,
-
-                date:
-                    document.getElementById(
-                        "eventDate"
-                    ).value,
-
-                time:
-                    document.getElementById(
-                        "eventTime"
-                    ).value,
-
-                venue:
-                    document.getElementById(
-                        "eventVenue"
-                    ).value,
-
-                price:
-                    Number(
-                        document.getElementById(
-                            "eventPrice"
-                        ).value
-                    ),
-
-                capacity:
-                    Number(
-                        document.getElementById(
-                            "eventCapacity"
-                        ).value
-                    ),
-
-                description:
-                    document.getElementById(
-                        "eventDescription"
-                    ).value,
-
-                reminder:
-                    document.getElementById(
-                        "eventReminder"
-                    ).checked,
-
-                owner:
-                    user.email,
-
-                ownerName:
-                    user.name
-
-            };
-
-
-            const events = getEvents();
-
-            events.push(event);
-
-            saveEvents(events);
-
-
-            document.getElementById(
-                "createEventMsg"
-            ).textContent =
-                "Event created successfully!";
-
-
-            document.getElementById(
-                "createEventMsg"
-            ).style.color = "green";
-
-
-            form.reset();
+            msg.style.color =
+                "#059669";
 
 
             setTimeout(
-                function () {
 
-                    window.location.href =
-                        "my-events.html";
+                redirectToRoleDashboard,
 
-                },
-                800
+                500
+
             );
 
         }
+
     );
 
 }
 
 
-// =====================================================
-// DASHBOARD
-// =====================================================
+/* =====================================================
+   LOGOUT
+   ===================================================== */
 
-function loadDashboard() {
+function logout() {
+
+    localStorage.removeItem(
+        "currentUser"
+    );
+
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+function adminLogout() {
+
+    localStorage.removeItem(
+        "adminLoggedIn"
+    );
+
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+/* =====================================================
+   USER NAVIGATION
+   ===================================================== */
+
+function buildUserNav() {
+
+    const nav =
+        document.getElementById(
+            "userNav"
+        );
+
+
+    if (!nav) {
+        return;
+    }
+
 
     const user =
         getCurrentUser();
 
+
     if (!user) {
 
         window.location.href =
-            "user-login.html";
+            "login.html";
 
         return;
 
     }
+
+
+    let links = `
+
+        <a href="user-dashboard.html">
+            Dashboard
+        </a>
+
+        <a href="events.html">
+            Events
+        </a>
+
+    `;
+
+
+    if (
+        user.role ===
+        "organizer"
+    ) {
+
+        links += `
+
+            <a href="my-events.html">
+                My Events
+            </a>
+
+        `;
+
+    } else {
+
+        links += `
+
+            <a href="my-registrations.html">
+                My Registrations
+            </a>
+
+        `;
+
+    }
+
+
+    links += `
+
+        <button
+            onclick="logout()"
+            class="logout-btn">
+
+            Logout
+
+        </button>
+
+    `;
+
+
+    nav.innerHTML =
+        links;
+
+}
+
+
+/* =====================================================
+   EVENT CARD
+   ===================================================== */
+
+function eventCardHTML(
+    event,
+    options = {}
+) {
+
+    const user =
+        getCurrentUser();
+
+
+    const registrations =
+        getRegistrations();
+
+
+    const sold =
+        registrations.filter(
+
+            function (r) {
+
+                return (
+                    r.eventId ===
+                    event.id
+                );
+
+            }
+
+        ).length;
+
+
+    const remaining =
+        Math.max(
+
+            0,
+
+            Number(
+                event.capacity || 0
+            )
+            -
+            sold
+
+        );
+
+
+    const registered =
+        user &&
+        registrations.some(
+
+            function (r) {
+
+                return (
+
+                    r.eventId ===
+                    event.id
+
+                    &&
+
+                    r.email ===
+                    user.email
+
+                );
+
+            }
+
+        );
+
+
+    const isOrganizer =
+        user &&
+        user.role ===
+        "organizer";
+
+
+    const showRegister =
+        options.showRegister !== false
+        &&
+        user
+        &&
+        user.role ===
+        "attendee";
+
+
+    const showManage =
+        options.showManage === true
+        &&
+        isOrganizer
+        &&
+        event.owner ===
+        user.email;
+
+
+    return `
+
+        <article class="event-card">
+
+            <div class="event-badge">
+
+                ${escapeHTML(
+                    event.category ||
+                    "Event"
+                )}
+
+            </div>
+
+
+            <h2>
+                ${escapeHTML(
+                    event.title
+                )}
+            </h2>
+
+
+            <p>
+
+                <strong>
+                    📅 Date:
+                </strong>
+
+                ${escapeHTML(
+                    formatDate(
+                        event.date
+                    )
+                )}
+
+            </p>
+
+
+            <p>
+
+                <strong>
+                    ⏰ Time:
+                </strong>
+
+                ${escapeHTML(
+                    formatTime(
+                        event.time
+                    )
+                )}
+
+            </p>
+
+
+            <p>
+
+                <strong>
+                    📍 Venue:
+                </strong>
+
+                ${escapeHTML(
+                    event.venue
+                )}
+
+            </p>
+
+
+            <p class="event-description">
+
+                ${escapeHTML(
+                    event.description
+                )}
+
+            </p>
+
+
+            <div class="event-meta">
+
+                <span>
+
+                    <strong>
+                        Ticket:
+                    </strong>
+
+                    ₹${Number(
+                        event.price || 0
+                    )}
+
+                </span>
+
+
+                <span>
+
+                    <strong>
+                        Available:
+                    </strong>
+
+                    ${remaining}
+
+                </span>
+
+            </div>
+
+
+            <div class="event-actions">
+
+
+                ${
+                    showRegister
+
+                    ?
+
+                    `
+
+                    <button
+
+                        class="btn"
+
+                        onclick="
+                            registerForEvent(
+                                '${event.id}'
+                            )
+                        "
+
+                        ${
+                            registered ||
+                            remaining === 0
+                            ?
+                            "disabled"
+                            :
+                            ""
+                        }
+
+                    >
+
+                        ${
+                            registered
+                            ?
+                            "Registered"
+                            :
+                            remaining === 0
+                            ?
+                            "Sold Out"
+                            :
+                            "Register"
+                        }
+
+                    </button>
+
+                    `
+
+                    :
+
+                    ""
+
+                }
+
+
+                ${
+                    showManage
+
+                    ?
+
+                    `
+
+                    <button
+
+                        class="btn btn-outline"
+
+                        onclick="
+                            editEvent(
+                                '${event.id}'
+                            )
+                        "
+
+                    >
+
+                        Edit
+
+                    </button>
+
+
+                    <button
+
+                        class="btn btn-danger"
+
+                        onclick="
+                            deleteEvent(
+                                '${event.id}'
+                            )
+                        "
+
+                    >
+
+                        Delete
+
+                    </button>
+
+                    `
+
+                    :
+
+                    ""
+
+                }
+
+
+            </div>
+
+
+        </article>
+
+    `;
+
+}
+
+
+/* =====================================================
+   USER DASHBOARD
+   ===================================================== */
+
+function setupDashboard() {
+
+    const dashboard =
+        document.getElementById(
+            "userDashboard"
+        );
+
+
+    if (!dashboard) {
+        return;
+    }
+
+
+    const user =
+        getCurrentUser();
+
+
+    if (!user) {
+
+        window.location.href =
+            "login.html";
+
+        return;
+
+    }
+
+
+    buildUserNav();
 
 
     const welcome =
@@ -530,92 +1281,237 @@ function loadDashboard() {
             "welcomeUser"
         );
 
-    if (welcome) {
 
-        welcome.textContent =
-            "Welcome, " + user.name + "!";
+    const roleLabel =
+        document.getElementById(
+            "roleLabel"
+        );
 
-    }
+
+    const quickActions =
+        document.getElementById(
+            "quickActions"
+        );
 
 
-    const events = getEvents();
+    const schedule =
+        document.getElementById(
+            "dashboardSchedule"
+        );
+
+
+    const events =
+        getEvents().sort(
+
+            function (a, b) {
+
+                return (
+
+                    a.date +
+                    a.time
+
+                ).localeCompare(
+
+                    b.date +
+                    b.time
+
+                );
+
+            }
+
+        );
+
 
     const registrations =
         getRegistrations();
 
 
-    const statOne =
-        document.getElementById("statOne");
-
-    const statTwo =
-        document.getElementById("statTwo");
-
-    const statThree =
-        document.getElementById("statThree");
+    welcome.textContent =
+        "Welcome, " +
+        user.name +
+        "!";
 
 
-    if (user.role === "organizer") {
+    if (
+        user.role ===
+        "organizer"
+    ) {
+
+        roleLabel.textContent =
+            "Organizer Dashboard";
+
 
         const myEvents =
-            events.filter(function (event) {
+            events.filter(
 
-                return event.owner === user.email;
+                function (event) {
 
-            });
+                    return (
+                        event.owner ===
+                        user.email
+                    );
+
+                }
+
+            );
 
 
-        const ids =
-            myEvents.map(function (event) {
+        const myEventIds =
+            new Set(
 
-                return event.id;
+                myEvents.map(
 
-            });
+                    function (event) {
+
+                        return event.id;
+
+                    }
+
+                )
+
+            );
 
 
-        const registrationsForMyEvents =
+        const myRegistrations =
             registrations.filter(
+
                 function (registration) {
 
-                    return ids.includes(
+                    return myEventIds.has(
                         registration.eventId
                     );
 
                 }
+
             );
 
 
         const revenue =
-            registrationsForMyEvents.reduce(
-                function (total, registration) {
+            myRegistrations.reduce(
 
-                    return total +
+                function (sum, registration) {
+
+                    return (
+                        sum +
                         Number(
-                            registration.amount || 0
-                        );
+                            registration.amount ||
+                            0
+                        )
+                    );
 
                 },
+
                 0
+
             );
 
 
-        if (statOne)
-            statOne.textContent =
-                myEvents.length;
+        document.getElementById(
+            "statTitleOne"
+        ).textContent =
+            "My Events";
 
-        if (statTwo)
-            statTwo.textContent =
-                registrationsForMyEvents.length;
 
-        if (statThree)
-            statThree.textContent =
-                "₹" + revenue;
+        document.getElementById(
+            "statOne"
+        ).textContent =
+            myEvents.length;
+
+
+        document.getElementById(
+            "statTitleTwo"
+        ).textContent =
+            "Tickets Sold";
+
+
+        document.getElementById(
+            "statTwo"
+        ).textContent =
+            myRegistrations.length;
+
+
+        document.getElementById(
+            "statTitleThree"
+        ).textContent =
+            "Revenue";
+
+
+        document.getElementById(
+            "statThree"
+        ).textContent =
+            "₹" + revenue;
+
+
+        quickActions.innerHTML = `
+
+            <a
+                href="create-event.html"
+                class="btn">
+
+                Create Event
+
+            </a>
+
+
+            <a
+                href="my-events.html"
+                class="btn">
+
+                Manage My Events
+
+            </a>
+
+
+            <a
+                href="events.html"
+                class="btn btn-secondary">
+
+                Explore Events
+
+            </a>
+
+        `;
+
+
+        schedule.innerHTML =
+
+            events
+                .slice(0, 6)
+                .map(
+
+                    function (event) {
+
+                        return eventCardHTML(
+
+                            event,
+
+                            {
+                                showRegister:
+                                    false,
+
+                                showManage:
+                                    true
+                            }
+
+                        );
+
+                    }
+
+                )
+                .join("");
 
     }
 
+
     else {
+
+        roleLabel.textContent =
+            "Attendee Dashboard";
+
 
         const myRegistrations =
             registrations.filter(
+
                 function (registration) {
 
                     return (
@@ -624,552 +1520,287 @@ function loadDashboard() {
                     );
 
                 }
+
             );
 
 
-        const amount =
-            myRegistrations.reduce(
-                function (total, registration) {
+        document.getElementById(
+            "statTitleOne"
+        ).textContent =
+            "Registrations";
 
-                    return total +
-                        Number(
-                            registration.amount || 0
+
+        document.getElementById(
+            "statOne"
+        ).textContent =
+            myRegistrations.length;
+
+
+        document.getElementById(
+            "statTitleTwo"
+        ).textContent =
+            "Upcoming Events";
+
+
+        document.getElementById(
+            "statTwo"
+        ).textContent =
+            events.length;
+
+
+        document.getElementById(
+            "statTitleThree"
+        ).textContent =
+            "Tickets";
+
+
+        document.getElementById(
+            "statThree"
+        ).textContent =
+            myRegistrations.length;
+
+
+        quickActions.innerHTML = `
+
+            <a
+                href="events.html"
+                class="btn">
+
+                Explore Events
+
+            </a>
+
+
+            <a
+                href="my-registrations.html"
+                class="btn">
+
+                My Registrations
+
+            </a>
+
+        `;
+
+
+        schedule.innerHTML =
+
+            events
+                .slice(0, 6)
+                .map(
+
+                    function (event) {
+
+                        return eventCardHTML(
+
+                            event,
+
+                            {
+                                showRegister:
+                                    true
+                            }
+
                         );
 
-                },
-                0
-            );
+                    }
 
-
-        if (statOne)
-            statOne.textContent =
-                events.length;
-
-        if (statTwo)
-            statTwo.textContent =
-                myRegistrations.length;
-
-        if (statThree)
-            statThree.textContent =
-                "₹" + amount;
+                )
+                .join("");
 
     }
 
-
-    loadDashboardSchedule();
-
 }
 
 
-// =====================================================
-// DASHBOARD SCHEDULE
-// =====================================================
+/* =====================================================
+   EVENTS PAGE
+   ===================================================== */
 
-function loadDashboardSchedule() {
-
-    const container =
-        document.getElementById(
-            "dashboardSchedule"
-        );
-
-    if (!container) return;
-
-
-    const events = getEvents();
-
-    container.innerHTML = "";
-
-
-    events.slice(0, 5).forEach(
-        function (event) {
-
-            container.innerHTML += `
-
-                <div class="schedule-item">
-
-                    <h3>${event.title}</h3>
-
-                    <p>📅 ${event.date}</p>
-
-                    <p>⏰ ${event.time}</p>
-
-                    <p>📍 ${event.venue}</p>
-
-                </div>
-
-            `;
-
-        }
-    );
-
-}
-
-
-// =====================================================
-// MY EVENTS
-// =====================================================
-
-function loadMyEvents() {
+function setupEventsPage() {
 
     const container =
         document.getElementById(
-            "organizerEvents"
+            "allEvents"
         );
 
-    if (!container) return;
+
+    if (!container) {
+        return;
+    }
 
 
     const user =
         getCurrentUser();
 
+
     if (!user) {
 
         window.location.href =
-            "user-login.html";
+            "login.html";
 
         return;
 
     }
 
 
-    const events = getEvents();
+    buildUserNav();
 
-    const myEvents =
-        events.filter(function (event) {
-
-            return event.owner === user.email;
-
-        });
-
-
-    const registrations =
-        getRegistrations();
-
-
-    container.innerHTML = "";
-
-
-    if (myEvents.length === 0) {
-
-        container.innerHTML = `
-
-            <div class="empty-message">
-
-                <p>
-                    You have not created any events yet.
-                </p>
-
-                <a
-                    href="create-event.html"
-                    class="btn">
-
-                    Create Event
-
-                </a>
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    myEvents.forEach(function (event) {
-
-        const eventRegistrations =
-            registrations.filter(
-                function (registration) {
-
-                    return (
-                        registration.eventId ===
-                        event.id
-                    );
-
-                }
-            );
-
-
-        const revenue =
-            eventRegistrations.reduce(
-                function (total, registration) {
-
-                    return total +
-                        Number(
-                            registration.amount || 0
-                        );
-
-                },
-                0
-            );
-
-
-        container.innerHTML += `
-
-            <div class="event-card">
-
-                <h2>${event.title}</h2>
-
-                <p>📅 ${event.date}</p>
-
-                <p>⏰ ${event.time}</p>
-
-                <p>📍 ${event.venue}</p>
-
-                <p>${event.description}</p>
-
-                <hr>
-
-                <p>
-                    <strong>Tickets Sold:</strong>
-                    ${eventRegistrations.length}
-                    / ${event.capacity}
-                </p>
-
-                <p>
-                    <strong>Revenue:</strong>
-                    ₹${revenue}
-                </p>
-
-                <button
-                    class="btn"
-                    onclick="editEvent('${event.id}')">
-
-                    Edit
-
-                </button>
-
-                <button
-                    class="btn"
-                    onclick="deleteEvent('${event.id}')">
-
-                    Delete
-
-                </button>
-
-            </div>
-
-        `;
-
-    });
-
-}
-
-
-// =====================================================
-// EDIT EVENT
-// =====================================================
-
-function editEvent(eventId) {
-
-    const events = getEvents();
-
-    const event =
-        events.find(function (event) {
-
-            return event.id === eventId;
-
-        });
-
-
-    if (!event) return;
-
-
-    const title =
-        prompt(
-            "Enter event title:",
-            event.title
-        );
-
-    if (title === null) return;
-
-
-    const venue =
-        prompt(
-            "Enter venue:",
-            event.venue
-        );
-
-    if (venue === null) return;
-
-
-    const price =
-        prompt(
-            "Enter ticket price:",
-            event.price
-        );
-
-    if (price === null) return;
-
-
-    event.title = title;
-
-    event.venue = venue;
-
-    event.price = Number(price);
-
-
-    saveEvents(events);
-
-
-    alert(
-        "Event updated successfully!"
-    );
-
-
-    loadMyEvents();
-
-}
-
-
-// =====================================================
-// DELETE EVENT
-// =====================================================
-
-function deleteEvent(eventId) {
-
-    if (
-        !confirm(
-            "Are you sure you want to delete this event?"
-        )
-    ) {
-        return;
-    }
-
-
-    let events = getEvents();
-
-
-    events =
-        events.filter(function (event) {
-
-            return event.id !== eventId;
-
-        });
-
-
-    saveEvents(events);
-
-
-    let registrations =
-        getRegistrations();
-
-
-    registrations =
-        registrations.filter(
-            function (registration) {
-
-                return (
-                    registration.eventId !==
-                    eventId
-                );
-
-            }
-        );
-
-
-    saveRegistrations(registrations);
-
-
-    alert(
-        "Event deleted successfully!"
-    );
-
-
-    loadMyEvents();
-
-}
-
-
-// =====================================================
-// EVENTS
-// =====================================================
-
-function loadEvents() {
-
-    const container =
-        document.getElementById(
-            "allEvents"
-        );
-
-    if (!container) return;
-
-
-    displayEvents(getEvents());
-
-}
-
-
-function displayEvents(events) {
-
-    const container =
-        document.getElementById(
-            "allEvents"
-        );
-
-    if (!container) return;
-
-
-    const registrations =
-        getRegistrations();
-
-
-    container.innerHTML = "";
-
-
-    if (events.length === 0) {
-
-        container.innerHTML = `
-
-            <p class="empty-message">
-                No events available.
-            </p>
-
-        `;
-
-        return;
-
-    }
-
-
-    events.forEach(function (event) {
-
-        const sold =
-            registrations.filter(
-                function (registration) {
-
-                    return (
-                        registration.eventId ===
-                        event.id
-                    );
-
-                }
-            ).length;
-
-
-        const available =
-            event.capacity - sold;
-
-
-        container.innerHTML += `
-
-            <div class="event-card">
-
-                <h2>${event.title}</h2>
-
-                <p>
-                    📅 <strong>Date:</strong>
-                    ${event.date}
-                </p>
-
-                <p>
-                    ⏰ <strong>Time:</strong>
-                    ${event.time}
-                </p>
-
-                <p>
-                    📍 <strong>Venue:</strong>
-                    ${event.venue}
-                </p>
-
-                <p>
-                    ${event.description}
-                </p>
-
-                <p>
-                    <strong>Ticket Price:</strong>
-                    ₹${event.price}
-                </p>
-
-                <p>
-                    <strong>Available Tickets:</strong>
-                    ${available}
-                </p>
-
-                <button
-                    class="btn"
-                    onclick="registerForEvent('${event.id}')"
-                    ${available <= 0 ? "disabled" : ""}>
-
-                    ${
-                        available <= 0
-                        ? "Sold Out"
-                        : "Register"
-                    }
-
-                </button>
-
-            </div>
-
-        `;
-
-    });
-
-}
-
-
-// =====================================================
-// EVENT SEARCH
-// =====================================================
-
-function setupEventSearch() {
 
     const search =
         document.getElementById(
             "eventSearch"
         );
 
-    if (!search) return;
+
+    function renderEvents(
+        query = ""
+    ) {
+
+        const term =
+            query
+                .trim()
+                .toLowerCase();
 
 
-    search.addEventListener(
-        "input",
-        function () {
+        const filtered =
+            getEvents()
 
-            const text =
-                this.value.toLowerCase();
+                .filter(
 
-
-            const filtered =
-                getEvents().filter(
                     function (event) {
 
-                        return (
-                            event.title
+                        if (!term) {
+                            return true;
+                        }
+
+
+                        return [
+
+                            event.title,
+
+                            event.venue,
+
+                            event.description,
+
+                            event.category
+
+                        ].some(
+
+                            function (value) {
+
+                                return String(
+                                    value || ""
+                                )
                                 .toLowerCase()
-                                .includes(text)
+                                .includes(term);
 
-                            ||
+                            }
 
-                            event.venue
-                                .toLowerCase()
-                                .includes(text)
-
-                            ||
-
-                            event.description
-                                .toLowerCase()
-                                .includes(text)
                         );
 
                     }
+
+                )
+
+                .sort(
+
+                    function (a, b) {
+
+                        return (
+
+                            a.date +
+                            a.time
+
+                        ).localeCompare(
+
+                            b.date +
+                            b.time
+
+                        );
+
+                    }
+
                 );
 
 
-            displayEvents(filtered);
+        if (
+            !filtered.length
+        ) {
+
+            container.innerHTML = `
+
+                <div class="empty-message">
+
+                    <h3>
+                        No events available.
+                    </h3>
+
+                    <p>
+                        Try a different search.
+                    </p>
+
+                </div>
+
+            `;
+
+            return;
 
         }
+
+
+        container.innerHTML =
+
+            filtered
+                .map(
+
+                    function (event) {
+
+                        return eventCardHTML(
+
+                            event,
+
+                            {
+                                showRegister:
+                                    user.role ===
+                                    "attendee"
+                            }
+
+                        );
+
+                    }
+
+                )
+                .join("");
+
+    }
+
+
+    renderEvents();
+
+
+    search.addEventListener(
+
+        "input",
+
+        function () {
+
+            renderEvents(
+                search.value
+            );
+
+        }
+
     );
 
 }
 
 
-// =====================================================
-// REGISTER
-// =====================================================
+/* =====================================================
+   EVENT REGISTRATION
+   ===================================================== */
 
-function registerForEvent(eventId) {
+function registerForEvent(
+    eventId
+) {
 
     const user =
         getCurrentUser();
@@ -1177,12 +1808,22 @@ function registerForEvent(eventId) {
 
     if (!user) {
 
-        alert(
-            "Please login first."
-        );
-
         window.location.href =
-            "user-login.html";
+            "login.html";
+
+        return;
+
+    }
+
+
+    if (
+        user.role !==
+        "attendee"
+    ) {
+
+        alert(
+            "Only attendees can register for events."
+        );
 
         return;
 
@@ -1191,34 +1832,47 @@ function registerForEvent(eventId) {
 
     const event =
         getEvents().find(
+
             function (event) {
 
-                return event.id === eventId;
+                return (
+                    event.id ===
+                    eventId
+                );
 
             }
+
         );
 
 
-    if (!event) return;
+    if (!event) {
+        return;
+    }
 
 
-    let registrations =
+    const registrations =
         getRegistrations();
 
 
     const alreadyRegistered =
-        registrations.find(
+        registrations.some(
+
             function (registration) {
 
                 return (
+
                     registration.eventId ===
-                    eventId &&
+                    eventId
+
+                    &&
 
                     registration.email ===
                     user.email
+
                 );
 
             }
+
         );
 
 
@@ -1235,6 +1889,7 @@ function registerForEvent(eventId) {
 
     const sold =
         registrations.filter(
+
             function (registration) {
 
                 return (
@@ -1243,10 +1898,14 @@ function registerForEvent(eventId) {
                 );
 
             }
+
         ).length;
 
 
-    if (sold >= event.capacity) {
+    if (
+        sold >=
+        Number(event.capacity)
+    ) {
 
         alert(
             "Sorry, this event is sold out."
@@ -1259,13 +1918,18 @@ function registerForEvent(eventId) {
 
     const payment =
         confirm(
+
             "Ticket Price: ₹" +
             event.price +
-            "\n\nProceed with simulated payment?"
+            "\n\n" +
+            "Proceed with simulated payment?"
+
         );
 
 
-    if (!payment) return;
+    if (!payment) {
+        return;
+    }
 
 
     const ticketId =
@@ -1275,35 +1939,50 @@ function registerForEvent(eventId) {
 
     registrations.push({
 
-        id: generateId("reg"),
+        id:
+            generateId("reg"),
 
-        eventId: event.id,
+        eventId:
+            event.id,
 
-        eventTitle: event.title,
+        eventTitle:
+            event.title,
 
-        email: user.email,
+        email:
+            user.email,
 
-        name: user.name,
+        name:
+            user.name,
 
-        amount: event.price,
+        amount:
+            Number(event.price),
 
-        ticketId: ticketId,
+        ticketId:
+            ticketId,
 
         date:
-            new Date().toLocaleDateString(),
+            new Date()
+                .toLocaleDateString(
+                    "en-IN"
+                ),
 
-        reminder: false
+        reminder:
+            false
 
     });
 
 
-    saveRegistrations(registrations);
+    saveRegistrations(
+        registrations
+    );
 
 
     alert(
+
         "Registration successful!\n\n" +
         "Your Ticket ID: " +
         ticketId
+
     );
 
 
@@ -1313,18 +1992,21 @@ function registerForEvent(eventId) {
 }
 
 
-// =====================================================
-// MY REGISTRATIONS
-// =====================================================
+/* =====================================================
+   MY REGISTRATIONS
+   ===================================================== */
 
-function loadMyRegistrations() {
+function setupMyRegistrations() {
 
     const container =
         document.getElementById(
             "myRegistrations"
         );
 
-    if (!container) return;
+
+    if (!container) {
+        return;
+    }
 
 
     const user =
@@ -1334,7 +2016,37 @@ function loadMyRegistrations() {
     if (!user) {
 
         window.location.href =
-            "user-login.html";
+            "login.html";
+
+        return;
+
+    }
+
+
+    buildUserNav();
+
+
+    if (
+        user.role !==
+        "attendee"
+    ) {
+
+        container.innerHTML = `
+
+            <div class="empty-message">
+
+                <h3>
+                    This page is for attendees.
+                </h3>
+
+                <p>
+                    Organizers can manage their
+                    events from My Events.
+                </p>
+
+            </div>
+
+        `;
 
         return;
 
@@ -1343,6 +2055,7 @@ function loadMyRegistrations() {
 
     const registrations =
         getRegistrations().filter(
+
             function (registration) {
 
                 return (
@@ -1351,20 +2064,25 @@ function loadMyRegistrations() {
                 );
 
             }
+
         );
 
 
-    container.innerHTML = "";
-
-
-    if (registrations.length === 0) {
+    if (
+        !registrations.length
+    ) {
 
         container.innerHTML = `
 
             <div class="empty-message">
 
+                <h3>
+                    No registrations yet.
+                </h3>
+
                 <p>
-                    You have no registrations yet.
+                    Explore events and register
+                    for the ones you like.
                 </p>
 
                 <a
@@ -1384,68 +2102,131 @@ function loadMyRegistrations() {
     }
 
 
-    registrations.forEach(
-        function (registration) {
+    container.innerHTML =
 
-            container.innerHTML += `
+        registrations.map(
 
-                <div class="event-card">
+            function (registration) {
 
-                    <h2>
-                        ${registration.eventTitle}
-                    </h2>
+                return `
 
-                    <p>
-                        <strong>Ticket ID:</strong>
-                        ${registration.ticketId}
-                    </p>
+                    <article
+                        class="event-card registration-card">
 
-                    <p>
-                        <strong>Amount Paid:</strong>
-                        ₹${registration.amount}
-                    </p>
+                        <div class="event-badge">
 
-                    <p>
-                        <strong>Registered On:</strong>
-                        ${registration.date}
-                    </p>
+                            Ticket Confirmed
 
-                    <p>
-                        <strong>Reminder:</strong>
-                        ${
-                            registration.reminder
-                            ? "Set"
-                            : "Not Set"
-                        }
-                    </p>
+                        </div>
 
-                    <button
-                        class="btn"
-                        onclick="setReminder('${registration.id}')">
 
-                        ${
-                            registration.reminder
-                            ? "Reminder Set"
-                            : "Set Reminder"
-                        }
+                        <h2>
 
-                    </button>
+                            ${escapeHTML(
+                                registration.eventTitle
+                            )}
 
-                </div>
+                        </h2>
 
-            `;
 
-        }
-    );
+                        <p>
+
+                            <strong>
+                                🎫 Ticket ID:
+                            </strong>
+
+                            ${escapeHTML(
+                                registration.ticketId
+                            )}
+
+                        </p>
+
+
+                        <p>
+
+                            <strong>
+                                💳 Amount Paid:
+                            </strong>
+
+                            ₹${Number(
+                                registration.amount ||
+                                0
+                            )}
+
+                        </p>
+
+
+                        <p>
+
+                            <strong>
+                                📅 Registered On:
+                            </strong>
+
+                            ${escapeHTML(
+                                registration.date
+                            )}
+
+                        </p>
+
+
+                        <p>
+
+                            <strong>
+                                🔔 Reminder:
+                            </strong>
+
+                            ${
+                                registration.reminder
+                                ?
+                                "Set"
+                                :
+                                "Not Set"
+                            }
+
+                        </p>
+
+
+                        <button
+
+                            class="btn"
+
+                            onclick="
+                                setReminder(
+                                    '${registration.id}'
+                                )
+                            "
+
+                        >
+
+                            ${
+                                registration.reminder
+                                ?
+                                "Reminder Set"
+                                :
+                                "Set Reminder"
+                            }
+
+                        </button>
+
+
+                    </article>
+
+                `;
+
+            }
+
+        ).join("");
 
 }
 
 
-// =====================================================
-// REMINDER
-// =====================================================
+/* =====================================================
+   REMINDER
+   ===================================================== */
 
-function setReminder(registrationId) {
+function setReminder(
+    registrationId
+) {
 
     const registrations =
         getRegistrations();
@@ -1453,6 +2234,7 @@ function setReminder(registrationId) {
 
     const registration =
         registrations.find(
+
             function (registration) {
 
                 return (
@@ -1461,16 +2243,22 @@ function setReminder(registrationId) {
                 );
 
             }
+
         );
 
 
-    if (!registration) return;
+    if (!registration) {
+        return;
+    }
 
 
-    registration.reminder = true;
+    registration.reminder =
+        true;
 
 
-    saveRegistrations(registrations);
+    saveRegistrations(
+        registrations
+    );
 
 
     alert(
@@ -1478,112 +2266,634 @@ function setReminder(registrationId) {
     );
 
 
-    loadMyRegistrations();
+    setupMyRegistrations();
 
 }
 
 
-// =====================================================
-// ADMIN LOGIN
-// =====================================================
+/* =====================================================
+   MY EVENTS - ORGANIZER
+   ===================================================== */
 
-function setupAdminLogin() {
+function setupMyEvents() {
 
-    const form =
+    const container =
         document.getElementById(
-            "adminLoginForm"
+            "organizerEvents"
         );
 
 
-    if (!form) return;
+    if (!container) {
+        return;
+    }
+
+
+    const user =
+        getCurrentUser();
+
+
+    if (!user) {
+
+        window.location.href =
+            "login.html";
+
+        return;
+
+    }
+
+
+    buildUserNav();
+
+
+    if (
+        user.role !==
+        "organizer"
+    ) {
+
+        container.innerHTML = `
+
+            <div class="empty-message">
+
+                <h3>
+                    This page is for organizers.
+                </h3>
+
+                <p>
+                    Attendees can explore and
+                    register for events.
+                </p>
+
+            </div>
+
+        `;
+
+
+        const createButton =
+            document.getElementById(
+                "createEventLink"
+            );
+
+
+        if (createButton) {
+
+            createButton.style.display =
+                "none";
+
+        }
+
+
+        return;
+
+    }
+
+
+    const events =
+        getEvents().filter(
+
+            function (event) {
+
+                return (
+                    event.owner ===
+                    user.email
+                );
+
+            }
+
+        );
+
+
+    if (
+        !events.length
+    ) {
+
+        container.innerHTML = `
+
+            <div class="empty-message">
+
+                <h3>
+                    You have not created any events yet.
+                </h3>
+
+                <p>
+                    Create your first event to start
+                    managing registrations and revenue.
+                </p>
+
+                <a
+                    href="create-event.html"
+                    class="btn">
+
+                    Create Event
+
+                </a>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+
+        events.map(
+
+            function (event) {
+
+                return eventCardHTML(
+
+                    event,
+
+                    {
+                        showRegister:
+                            false,
+
+                        showManage:
+                            true
+                    }
+
+                );
+
+            }
+
+        ).join("");
+
+}
+
+
+/* =====================================================
+   CREATE EVENT
+   ===================================================== */
+
+function setupCreateEvent() {
+
+    const form =
+        document.getElementById(
+            "createEventForm"
+        );
+
+
+    if (!form) {
+        return;
+    }
+
+
+    const user =
+        getCurrentUser();
+
+
+    if (!user) {
+
+        window.location.href =
+            "login.html";
+
+        return;
+
+    }
+
+
+    buildUserNav();
+
+
+    if (
+        user.role !==
+        "organizer"
+    ) {
+
+        document.querySelector(
+            ".create-event-card"
+        ).innerHTML = `
+
+            <div class="access-denied">
+
+                <h1>
+                    Access Restricted
+                </h1>
+
+                <p>
+                    Only organizers can create events.
+                </p>
+
+                <a
+                    href="user-dashboard.html"
+                    class="btn">
+
+                    Back to Dashboard
+
+                </a>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
 
 
     form.addEventListener(
+
         "submit",
+
         function (e) {
 
             e.preventDefault();
 
 
-            const email =
-                document.getElementById(
-                    "adminEmail"
-                ).value.trim();
+            const event = {
+
+                id:
+                    generateId("event"),
+
+                title:
+                    document
+                        .getElementById(
+                            "eventTitle"
+                        )
+                        .value
+                        .trim(),
+
+                date:
+                    document
+                        .getElementById(
+                            "eventDate"
+                        )
+                        .value,
+
+                time:
+                    document
+                        .getElementById(
+                            "eventTime"
+                        )
+                        .value,
+
+                venue:
+                    document
+                        .getElementById(
+                            "eventVenue"
+                        )
+                        .value
+                        .trim(),
+
+                price:
+                    Number(
+                        document
+                            .getElementById(
+                                "eventPrice"
+                            )
+                            .value
+                    ),
+
+                capacity:
+                    Number(
+                        document
+                            .getElementById(
+                                "eventCapacity"
+                            )
+                            .value
+                    ),
+
+                description:
+                    document
+                        .getElementById(
+                            "eventDescription"
+                        )
+                        .value
+                        .trim(),
+
+                category:
+                    document
+                        .getElementById(
+                            "eventCategory"
+                        )
+                        .value,
+
+                reminder:
+                    document
+                        .getElementById(
+                            "eventReminder"
+                        )
+                        .checked,
+
+                owner:
+                    user.email,
+
+                ownerName:
+                    user.name
+
+            };
 
 
-            const password =
-                document.getElementById(
-                    "adminPassword"
-                ).value.trim();
+            const events =
+                getEvents();
+
+
+            events.push(
+                event
+            );
+
+
+            saveEvents(
+                events
+            );
 
 
             const msg =
                 document.getElementById(
-                    "adminMsg"
+                    "createEventMsg"
                 );
 
 
-            if (
-                email === ADMIN_EMAIL &&
-                password === ADMIN_PASSWORD
-            ) {
-
-                localStorage.setItem(
-                    "adminLoggedIn",
-                    "true"
-                );
+            msg.textContent =
+                "Event created successfully!";
 
 
-                window.location.href =
-                    "admin-dashboard.html";
+            msg.style.color =
+                "#059669";
 
-            }
 
-            else {
+            form.reset();
 
-                msg.textContent =
-                    "Invalid admin email or password.";
 
-                msg.style.color = "red";
+            setTimeout(
 
-            }
+                function () {
+
+                    window.location.href =
+                        "my-events.html";
+
+                },
+
+                600
+
+            );
 
         }
+
     );
 
 }
 
 
-// =====================================================
-// ADMIN LOGOUT
-// =====================================================
+/* =====================================================
+   EDIT EVENT
+   ===================================================== */
 
-function adminLogout() {
+function editEvent(
+    eventId
+) {
 
-    localStorage.removeItem(
-        "adminLoggedIn"
-    );
-
-
-    window.location.href =
-        "admin-login.html";
-
-}
+    const user =
+        getCurrentUser();
 
 
-// =====================================================
-// ADMIN DASHBOARD
-// =====================================================
+    if (
+        !user ||
+        user.role !==
+        "organizer"
+    ) {
 
-function loadAdminDashboard() {
+        return;
 
-    const adminEvents =
-        document.getElementById(
-            "adminEvents"
+    }
+
+
+    const events =
+        getEvents();
+
+
+    const event =
+        events.find(
+
+            function (event) {
+
+                return (
+
+                    event.id ===
+                    eventId
+
+                    &&
+
+                    event.owner ===
+                    user.email
+
+                );
+
+            }
+
         );
 
 
-    if (!adminEvents) return;
+    if (!event) {
+
+        alert(
+            "You can edit only your own events."
+        );
+
+        return;
+
+    }
+
+
+    const title =
+        prompt(
+            "Event title:",
+            event.title
+        );
+
+
+    if (title === null) {
+        return;
+    }
+
+
+    const priceText =
+        prompt(
+            "Ticket price:",
+            event.price
+        );
+
+
+    if (priceText === null) {
+        return;
+    }
+
+
+    const capacityText =
+        prompt(
+            "Capacity:",
+            event.capacity
+        );
+
+
+    if (capacityText === null) {
+        return;
+    }
+
+
+    event.title =
+        title.trim() ||
+        event.title;
+
+
+    event.price =
+        Math.max(
+            0,
+            Number(priceText) || 0
+        );
+
+
+    event.capacity =
+        Math.max(
+            1,
+            Number(capacityText) ||
+            event.capacity
+        );
+
+
+    saveEvents(
+        events
+    );
+
+
+    alert(
+        "Event updated successfully!"
+    );
+
+
+    setupMyEvents();
+
+}
+
+
+/* =====================================================
+   DELETE EVENT
+   ===================================================== */
+
+function deleteEvent(
+    eventId
+) {
+
+    const user =
+        getCurrentUser();
+
+
+    if (
+        !user ||
+        user.role !==
+        "organizer"
+    ) {
+
+        return;
+
+    }
+
+
+    const events =
+        getEvents();
+
+
+    const event =
+        events.find(
+
+            function (event) {
+
+                return (
+
+                    event.id ===
+                    eventId
+
+                    &&
+
+                    event.owner ===
+                    user.email
+
+                );
+
+            }
+
+        );
+
+
+    if (!event) {
+        return;
+    }
+
+
+    if (
+        !confirm(
+            `Delete "${event.title}"?`
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    saveEvents(
+
+        events.filter(
+
+            function (event) {
+
+                return (
+                    event.id !==
+                    eventId
+                );
+
+            }
+
+        )
+
+    );
+
+
+    saveRegistrations(
+
+        getRegistrations().filter(
+
+            function (registration) {
+
+                return (
+                    registration.eventId !==
+                    eventId
+                );
+
+            }
+
+        )
+
+    );
+
+
+    alert(
+        "Event deleted successfully!"
+    );
+
+
+    setupMyEvents();
+
+}
+
+
+/* =====================================================
+   ADMIN DASHBOARD
+   ===================================================== */
+
+function setupAdminDashboard() {
+
+    const table =
+        document.getElementById(
+            "adminEventTable"
+        );
+
+
+    if (!table) {
+        return;
+    }
 
 
     if (
@@ -1593,7 +2903,7 @@ function loadAdminDashboard() {
     ) {
 
         window.location.href =
-            "admin-login.html";
+            "login.html";
 
         return;
 
@@ -1603,8 +2913,10 @@ function loadAdminDashboard() {
     const events =
         getEvents();
 
+
     const users =
         getUsers();
+
 
     const registrations =
         getRegistrations();
@@ -1612,176 +2924,248 @@ function loadAdminDashboard() {
 
     const revenue =
         registrations.reduce(
-            function (total, registration) {
 
-                return total +
+            function (
+                sum,
+                registration
+            ) {
+
+                return (
+
+                    sum +
                     Number(
-                        registration.amount || 0
-                    );
+                        registration.amount ||
+                        0
+                    )
+
+                );
 
             },
+
             0
+
         );
 
 
-    adminEvents.textContent =
+    document.getElementById(
+        "adminEvents"
+    ).textContent =
         events.length;
 
 
-    const adminUsers =
-        document.getElementById(
-            "adminUsers"
-        );
+    document.getElementById(
+        "adminUsers"
+    ).textContent =
+        users.length;
 
 
-    const adminRegistrations =
-        document.getElementById(
-            "adminRegistrations"
-        );
+    document.getElementById(
+        "adminRegistrations"
+    ).textContent =
+        registrations.length;
 
 
-    const adminRevenue =
-        document.getElementById(
-            "adminRevenue"
-        );
+    document.getElementById(
+        "adminRevenue"
+    ).textContent =
+        "₹" + revenue;
 
 
-    if (adminUsers)
-        adminUsers.textContent =
-            users.length;
+    table.innerHTML =
+
+        events.map(
+
+            function (event) {
 
 
-    if (adminRegistrations)
-        adminRegistrations.textContent =
-            registrations.length;
+                const sold =
+                    registrations.filter(
+
+                        function (
+                            registration
+                        ) {
+
+                            return (
+                                registration.eventId ===
+                                event.id
+                            );
+
+                        }
+
+                    ).length;
 
 
-    if (adminRevenue)
-        adminRevenue.textContent =
-            "₹" + revenue;
+                const eventRevenue =
+                    registrations
+
+                        .filter(
+
+                            function (
+                                registration
+                            ) {
+
+                                return (
+                                    registration.eventId ===
+                                    event.id
+                                );
+
+                            }
+
+                        )
+
+                        .reduce(
+
+                            function (
+                                sum,
+                                registration
+                            ) {
+
+                                return (
+
+                                    sum +
+                                    Number(
+                                        registration.amount ||
+                                        0
+                                    )
+
+                                );
+
+                            },
+
+                            0
+
+                        );
 
 
-    loadAdminEventTable();
+                return `
+
+                    <tr>
+
+                        <td>
+
+                            ${escapeHTML(
+                                event.title
+                            )}
+
+                        </td>
+
+
+                        <td>
+
+                            ${escapeHTML(
+                                formatDate(
+                                    event.date
+                                )
+                            )}
+
+                        </td>
+
+
+                        <td>
+
+                            ${escapeHTML(
+                                event.ownerName ||
+                                "Organizer"
+                            )}
+
+                        </td>
+
+
+                        <td>
+
+                            ${sold}/${Number(
+                                event.capacity ||
+                                0
+                            )}
+
+                        </td>
+
+
+                        <td>
+
+                            ₹${eventRevenue}
+
+                        </td>
+
+
+                        <td>
+
+                            <button
+
+                                class="btn btn-danger table-btn"
+
+                                onclick="
+                                    adminDeleteEvent(
+                                        '${event.id}'
+                                    )
+                                "
+
+                            >
+
+                                Delete
+
+                            </button>
+
+                        </td>
+
+
+                    </tr>
+
+                `;
+
+            }
+
+        ).join("");
 
 }
 
 
-// =====================================================
-// ADMIN EVENT TABLE
-// =====================================================
+/* =====================================================
+   ADMIN DELETE EVENT
+   ===================================================== */
 
-function loadAdminEventTable() {
+function adminDeleteEvent(
+    eventId
+) {
 
-    const table =
-        document.getElementById(
-            "adminEventTable"
-        );
+    if (
+        localStorage.getItem(
+            "adminLoggedIn"
+        ) !== "true"
+    ) {
 
+        return;
 
-    if (!table) return;
+    }
 
 
     const events =
         getEvents();
 
-    const registrations =
-        getRegistrations();
 
+    const event =
+        events.find(
 
-    table.innerHTML = "";
+            function (event) {
 
-
-    events.forEach(
-        function (event) {
-
-            const eventRegistrations =
-                registrations.filter(
-                    function (registration) {
-
-                        return (
-                            registration.eventId ===
-                            event.id
-                        );
-
-                    }
+                return (
+                    event.id ===
+                    eventId
                 );
 
+            }
 
-            const revenue =
-                eventRegistrations.reduce(
-                    function (
-                        total,
-                        registration
-                    ) {
-
-                        return total +
-                            Number(
-                                registration.amount ||
-                                0
-                            );
-
-                    },
-                    0
-                );
+        );
 
 
-            table.innerHTML += `
+    if (!event) {
+        return;
+    }
 
-                <tr>
-
-                    <td>
-                        ${event.title}
-                    </td>
-
-                    <td>
-                        ${event.date}
-                    </td>
-
-                    <td>
-                        ${event.ownerName}
-                    </td>
-
-                    <td>
-                        ${eventRegistrations.length}
-                        /
-                        ${event.capacity}
-                    </td>
-
-                    <td>
-                        ₹${revenue}
-                    </td>
-
-                    <td>
-
-                        <button
-                            class="btn"
-                            onclick="adminDeleteEvent('${event.id}')">
-
-                            Delete
-
-                        </button>
-
-                    </td>
-
-                </tr>
-
-            `;
-
-        }
-    );
-
-}
-
-
-// =====================================================
-// ADMIN DELETE EVENT
-// =====================================================
-
-function adminDeleteEvent(eventId) {
 
     if (
         !confirm(
-            "Are you sure you want to delete this event?"
+            `Delete "${event.title}"?`
         )
     ) {
 
@@ -1790,29 +3174,28 @@ function adminDeleteEvent(eventId) {
     }
 
 
-    let events =
-        getEvents();
+    saveEvents(
 
-
-    events =
         events.filter(
+
             function (event) {
 
-                return event.id !== eventId;
+                return (
+                    event.id !==
+                    eventId
+                );
 
             }
-        );
+
+        )
+
+    );
 
 
-    saveEvents(events);
+    saveRegistrations(
 
+        getRegistrations().filter(
 
-    let registrations =
-        getRegistrations();
-
-
-    registrations =
-        registrations.filter(
             function (registration) {
 
                 return (
@@ -1821,96 +3204,49 @@ function adminDeleteEvent(eventId) {
                 );
 
             }
-        );
 
+        )
 
-    saveRegistrations(registrations);
-
-
-    alert(
-        "Event deleted successfully!"
     );
 
 
-    loadAdminDashboard();
+    setupAdminDashboard();
 
 }
 
 
-// =====================================================
-// PAGE INITIALIZATION
-// =====================================================
+/* =====================================================
+   PAGE INITIALIZATION
+   ===================================================== */
+
+function initializePage() {
+
+    initializeData();
+
+
+    setupLogin();
+
+    setupSignup();
+
+    setupDashboard();
+
+    setupEventsPage();
+
+    setupCreateEvent();
+
+    setupMyEvents();
+
+    setupMyRegistrations();
+
+    setupAdminDashboard();
+
+}
+
 
 document.addEventListener(
+
     "DOMContentLoaded",
-    function () {
 
-        initializeData();
+    initializePage
 
-        setupUserLogin();
-
-        setupSignup();
-
-        setupCreateEvent();
-
-        setupEventSearch();
-
-        setupAdminLogin();
-
-
-        if (
-            document.getElementById(
-                "welcomeUser"
-            )
-        ) {
-
-            loadDashboard();
-
-        }
-
-
-        if (
-            document.getElementById(
-                "organizerEvents"
-            )
-        ) {
-
-            loadMyEvents();
-
-        }
-
-
-        if (
-            document.getElementById(
-                "allEvents"
-            )
-        ) {
-
-            loadEvents();
-
-        }
-
-
-        if (
-            document.getElementById(
-                "myRegistrations"
-            )
-        ) {
-
-            loadMyRegistrations();
-
-        }
-
-
-        if (
-            document.getElementById(
-                "adminEvents"
-            )
-        ) {
-
-            loadAdminDashboard();
-
-        }
-
-    }
 );

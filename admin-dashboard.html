@@ -1,23 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Admin Dashboard</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="style.css">
+    <title>
+        Admin Dashboard - Event Management System
+    </title>
+
+    <link rel="stylesheet"
+          href="style.css">
 
 </head>
 
 <body>
+
 
 <nav class="navbar">
 
     <div class="logo">
         Event Management System - Admin
     </div>
+
 
     <div class="nav-links">
 
@@ -37,49 +45,96 @@
 
 </nav>
 
+
 <section class="dashboard">
 
-    <h1>Admin Dashboard</h1>
+    <p class="role-label">
+        Administrator
+    </p>
 
-    <div class="stats-grid">
+    <h1>
+        Admin Dashboard
+    </h1>
 
-        <div class="stat-card">
 
-            <h3>Total Events</h3>
+    <div class="stats-grid four-cards">
 
-            <p id="adminEvents">0</p>
-
-        </div>
-
-        <div class="stat-card">
-
-            <h3>Total Users</h3>
-
-            <p id="adminUsers">0</p>
-
-        </div>
 
         <div class="stat-card">
 
-            <h3>Total Registrations</h3>
+            <h3>
+                Total Events
+            </h3>
 
-            <p id="adminRegistrations">0</p>
+            <p id="adminEvents">
+                0
+            </p>
 
         </div>
+
 
         <div class="stat-card">
 
-            <h3>Total Revenue</h3>
+            <h3>
+                Total Users
+            </h3>
 
-            <p id="adminRevenue">₹0</p>
+            <p id="adminUsers">
+                0
+            </p>
 
         </div>
+
+
+        <div class="stat-card">
+
+            <h3>
+                Total Registrations
+            </h3>
+
+            <p id="adminRegistrations">
+                0
+            </p>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <h3>
+                Total Revenue
+            </h3>
+
+            <p id="adminRevenue">
+                ₹0
+            </p>
+
+        </div>
+
 
     </div>
 
+
     <div class="dashboard-section">
 
-        <h2>Event Management</h2>
+
+        <div class="section-heading-row">
+
+            <div>
+
+                <h2>
+                    Event Management
+                </h2>
+
+                <p>
+                    Monitor events, tickets and
+                    revenue from one place.
+                </p>
+
+            </div>
+
+        </div>
+
 
         <div class="table-container">
 
@@ -89,18 +144,39 @@
 
                     <tr>
 
-                        <th>Event</th>
-                        <th>Date</th>
-                        <th>Organizer</th>
-                        <th>Tickets</th>
-                        <th>Revenue</th>
-                        <th>Action</th>
+                        <th>
+                            Event
+                        </th>
+
+                        <th>
+                            Date
+                        </th>
+
+                        <th>
+                            Organizer
+                        </th>
+
+                        <th>
+                            Tickets
+                        </th>
+
+                        <th>
+                            Revenue
+                        </th>
+
+                        <th>
+                            Action
+                        </th>
 
                     </tr>
 
                 </thead>
 
-                <tbody id="adminEventTable"></tbody>
+
+                <tbody
+                    id="adminEventTable">
+
+                </tbody>
 
             </table>
 
@@ -109,6 +185,7 @@
     </div>
 
 </section>
+
 
 <script src="scripts.js"></script>
 

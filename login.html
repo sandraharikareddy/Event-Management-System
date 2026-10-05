@@ -9,7 +9,7 @@
           content="width=device-width, initial-scale=1.0">
 
     <title>
-        Sign Up - Event Management System
+        Login - Event Management System
     </title>
 
     <link rel="stylesheet"
@@ -54,89 +54,54 @@
     <div class="form-card">
 
         <h1>
-            Create Account
+            Welcome Back
         </h1>
 
         <p class="form-intro">
-            Create an account as an
-            organizer or attendee.
+            Login with one account.
+            Your role automatically opens
+            the correct dashboard.
         </p>
 
 
-        <form id="signupForm">
+        <form id="loginForm">
 
 
-            <label for="signupName">
-                Full Name
-            </label>
-
-            <input
-                type="text"
-                id="signupName"
-                placeholder="Enter your full name"
-                required
-            >
-
-
-            <label for="signupEmail">
+            <label for="loginEmail">
                 Email
             </label>
 
             <input
                 type="email"
-                id="signupEmail"
+                id="loginEmail"
                 placeholder="Enter your email"
                 required
             >
 
 
-            <label for="signupPassword">
+            <label for="loginPassword">
                 Password
             </label>
 
             <input
                 type="password"
-                id="signupPassword"
-                placeholder="Enter password"
-                minlength="6"
+                id="loginPassword"
+                placeholder="Enter your password"
                 required
             >
-
-
-            <label for="signupRole">
-                Select Role
-            </label>
-
-            <select
-                id="signupRole"
-                required>
-
-                <option value="">
-                    Select your role
-                </option>
-
-                <option value="organizer">
-                    Organizer
-                </option>
-
-                <option value="attendee">
-                    Attendee
-                </option>
-
-            </select>
 
 
             <button
                 type="submit"
                 class="btn">
 
-                Create Account
+                Login
 
             </button>
 
 
             <p
-                id="signupMsg"
+                id="loginMsg"
                 class="form-message">
             </p>
 
@@ -146,10 +111,10 @@
 
         <p class="form-bottom">
 
-            Already have an account?
+            Don't have an account?
 
-            <a href="login.html">
-                Login
+            <a href="signup.html">
+                Sign Up
             </a>
 
         </p>

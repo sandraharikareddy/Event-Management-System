@@ -1,90 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>User Dashboard</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="style.css">
+    <title>
+        User Dashboard - Event Management System
+    </title>
+
+    <link rel="stylesheet"
+          href="style.css">
 
 </head>
 
 <body>
 
+
 <nav class="navbar">
 
-    <div class="logo">Event Management System</div>
+    <div class="logo">
+        Event Management System
+    </div>
 
-    <div class="nav-links">
 
-        <a href="user-dashboard.html">Dashboard</a>
-
-        <a href="events.html">Events</a>
-
-        <a href="my-events.html">My Events</a>
-
-        <a href="my-registrations.html">
-            My Registrations
-        </a>
-
-        <button onclick="logout()" class="logout-btn">
-            Logout
-        </button>
+    <div
+        class="nav-links"
+        id="userNav">
 
     </div>
 
 </nav>
 
-<section class="dashboard">
 
-    <h1 id="welcomeUser">
-        Welcome!
-    </h1>
+<section
+    class="dashboard"
+    id="userDashboard">
+
+
+    <div class="dashboard-heading">
+
+        <div>
+
+            <p
+                class="role-label"
+                id="roleLabel">
+
+                Dashboard
+
+            </p>
+
+            <h1 id="welcomeUser">
+                Welcome!
+            </h1>
+
+        </div>
+
+    </div>
+
 
     <div class="stats-grid">
 
-        <div class="stat-card">
-            <h3>My Events</h3>
-            <p id="statOne">0</p>
-        </div>
 
         <div class="stat-card">
-            <h3>Registrations</h3>
-            <p id="statTwo">0</p>
+
+            <h3 id="statTitleOne">
+                My Events
+            </h3>
+
+            <p id="statOne">
+                0
+            </p>
+
         </div>
 
+
         <div class="stat-card">
-            <h3>Revenue</h3>
-            <p id="statThree">₹0</p>
+
+            <h3 id="statTitleTwo">
+                Registrations
+            </h3>
+
+            <p id="statTwo">
+                0
+            </p>
+
         </div>
+
+
+        <div class="stat-card">
+
+            <h3 id="statTitleThree">
+                Revenue
+            </h3>
+
+            <p id="statThree">
+                ₹0
+            </p>
+
+        </div>
+
 
     </div>
+
 
     <div class="quick-actions">
 
-        <h2>Quick Actions</h2>
+        <h2>
+            Quick Actions
+        </h2>
 
-        <a href="create-event.html" class="btn">
-            Create Event
-        </a>
 
-        <a href="events.html" class="btn">
-            Explore Events
-        </a>
+        <div id="quickActions">
+
+        </div>
 
     </div>
+
 
     <div class="dashboard-section">
 
-        <h2>Upcoming Events</h2>
 
-        <div id="dashboardSchedule"></div>
+        <div class="section-heading-row">
+
+            <div>
+
+                <h2>
+                    Upcoming Events
+                </h2>
+
+                <p>
+                    Explore the latest events
+                    available in the system.
+                </p>
+
+            </div>
+
+
+            <a
+                href="events.html"
+                class="btn btn-small">
+
+                View All Events
+
+            </a>
+
+        </div>
+
+
+        <div
+            id="dashboardSchedule"
+            class="event-grid dashboard-event-grid">
+
+        </div>
+
 
     </div>
 
+
 </section>
+
 
 <script src="scripts.js"></script>
 

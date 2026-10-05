@@ -1,66 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>My Events</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="style.css">
+    <title>
+        My Events - Event Management System
+    </title>
+
+    <link rel="stylesheet"
+          href="style.css">
 
 </head>
 
 <body>
 
+
 <nav class="navbar">
 
-    <div class="logo">Event Management System</div>
+    <div class="logo">
+        Event Management System
+    </div>
 
-    <div class="nav-links">
 
-        <a href="user-dashboard.html">
-            Dashboard
-        </a>
-
-        <a href="events.html">
-            Events
-        </a>
-
-        <a href="my-events.html">
-            My Events
-        </a>
-
-        <a href="my-registrations.html">
-            My Registrations
-        </a>
-
-        <button onclick="logout()" class="logout-btn">
-            Logout
-        </button>
+    <div
+        class="nav-links"
+        id="userNav">
 
     </div>
 
 </nav>
 
+
 <section class="page-section">
+
 
     <div class="page-header">
 
+
         <div>
-            <h1>My Events</h1>
-            <p>Manage the events you created.</p>
+
+            <p class="role-label">
+                Organizer Module
+            </p>
+
+            <h1>
+                My Events
+            </h1>
+
+            <p>
+                Manage the events you created.
+            </p>
+
         </div>
 
-        <a href="create-event.html" class="btn">
+
+        <a
+            href="create-event.html"
+            id="createEventLink"
+            class="btn">
+
             + Create Event
+
         </a>
+
 
     </div>
 
-    <div id="organizerEvents" class="event-grid"></div>
+
+    <div
+        id="organizerEvents"
+        class="event-grid">
+
+    </div>
+
 
 </section>
+
 
 <script src="scripts.js"></script>
 

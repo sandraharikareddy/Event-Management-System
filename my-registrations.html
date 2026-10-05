@@ -1,58 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>My Registrations</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="style.css">
+    <title>
+        My Registrations - Event Management System
+    </title>
+
+    <link rel="stylesheet"
+          href="style.css">
 
 </head>
 
 <body>
 
+
 <nav class="navbar">
 
-    <div class="logo">Event Management System</div>
+    <div class="logo">
+        Event Management System
+    </div>
 
-    <div class="nav-links">
 
-        <a href="user-dashboard.html">
-            Dashboard
-        </a>
-
-        <a href="events.html">
-            Events
-        </a>
-
-        <a href="my-registrations.html">
-            My Registrations
-        </a>
-
-        <button onclick="logout()" class="logout-btn">
-            Logout
-        </button>
+    <div
+        class="nav-links"
+        id="userNav">
 
     </div>
 
 </nav>
 
+
 <section class="page-section">
 
-    <h1>My Registrations</h1>
 
-    <p>
-        Your registered events and ticket details.
-    </p>
+    <div class="page-title-block">
+
+        <p class="role-label">
+            Attendee Module
+        </p>
+
+        <h1>
+            My Registrations
+        </h1>
+
+        <p>
+            Your registered events,
+            ticket IDs and reminders.
+        </p>
+
+    </div>
+
 
     <div
         id="myRegistrations"
         class="event-grid">
+
     </div>
 
+
 </section>
+
 
 <script src="scripts.js"></script>
 
