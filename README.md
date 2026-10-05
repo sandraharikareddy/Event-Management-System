@@ -129,15 +129,6 @@ When an attendee registers for an event:
 5. A unique ticket ID is generated.
 6. Registration details are stored.
 7. The registration appears in My Registrations.
-
-Example:
-
-```text
-Event: Web Development Workshop
-Ticket Price: ₹500
-Ticket ID: TKT-XXXXXXXX
-```
-
 ---
 
 ## 💾 Data Management
